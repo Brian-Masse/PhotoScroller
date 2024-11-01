@@ -17,7 +17,7 @@ struct Home: View {
     var sharedData = SharedData()
     
     var body: some View {
-        let minimisedHeight = (size.height + safeArea.top + safeArea.bottom) * 0.4
+        let minimisedHeight = (size.height + safeArea.top + safeArea.bottom) * sharedData.peekHeight
         let mainOffset = sharedData.mainOffset
         
         ScrollView(.vertical) {
@@ -70,8 +70,10 @@ struct Home: View {
                 if isScrolling {
                     
                     
+                    
                     if sharedData.canPullDown && !sharedData.isExpanded {
 //                        print("canPullDown")
+                        
                         
                         let progress = max(min(translation / minimisedHeight, 1), 0)
                         sharedData.progress = progress

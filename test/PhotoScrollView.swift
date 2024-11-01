@@ -17,42 +17,20 @@ struct PhotoScrollView: View {
     
     var body: some View {
             
-        let screenHeight = size.height + safeArea.top + safeArea.bottom
-        let minimizedHeight = screenHeight * 0.4
+        let screenHeight = size.height + safeArea.top + safeArea.bottom - 300
+        let minimizedHeight = screenHeight * sharedData.peekHeight
         
-        GridPhotosScrollView()
+//        let height =
+        
+//        GridPhotosScrollView()
+        Rectangle()
+            .foregroundStyle(.red)
             .frame(width: size.width)
         
             .scrollClipDisabled()
             .offset(y: sharedData.canPullUp ? sharedData.photosScrollOffset : 0)
         
-            .frame(height: screenHeight)
+//            .frame(height: screenHeight)
             .frame(height: screenHeight - (minimizedHeight - (minimizedHeight * sharedData.progress)), alignment: .bottom)
     }
-    
-    @ViewBuilder
-    private func GridPhotosScrollView() -> some View {
-        
-        ScrollView(.vertical) {
-            LazyVStack {
-                ForEach(1...20, id: \.self) { i in
-                    Rectangle()
-                        .foregroundStyle(.red)
-                        .frame(height: 200)
-                        .opacity(Double(i) / 20)
-                }
-            }
-        }
-        .defaultScrollAnchor(.bottom)
-        .scrollDisabled(!sharedData.isExpanded)
-        .scrollClipDisabled()
-        .onScrollGeometryChange(for: CGFloat.self) { geo in
-            geo.contentOffset.y - geo.contentSize.height + geo.containerSize.height
-        } action: { oldValue, newValue in
-            sharedData.photosScrollOffset = newValue
-        }
-
-        
-    }
-    
 }

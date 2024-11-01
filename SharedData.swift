@@ -10,6 +10,8 @@ import SwiftUI
 
 @Observable
 class SharedData {
+    let peekHeight: Double = 0.9
+    
     var activePage: Int = 1
     var isExpanded: Bool = false
     
